@@ -3,7 +3,7 @@ package com.example.mymemory.models
 import com.example.mymemory.utils.DEFAULT_ICONS
 
 // crate the functionality of the game
-class MemoryGame (private  val boardSize: BoardSize){
+class MemoryGame(private val boardSize: BoardSize, private val customImages: List<String>?){
 
     val cards: List<MemoryCard>
     var numPairsFound = 0
@@ -13,10 +13,18 @@ class MemoryGame (private  val boardSize: BoardSize){
 
 
     init {
-        val chosenImages = DEFAULT_ICONS.shuffled().take(boardSize.getNumPairs()) // get a list of images. needs to be pairs
-        val randomizedImage = (chosenImages + chosenImages).shuffled()
-        // each card on the screen will represents its own memory card. from a list of randomizedImage, create meory card for each image using map()
-       cards = randomizedImage.map { MemoryCard(it) }
+        if (customImages == null) {
+            val chosenImages = DEFAULT_ICONS.shuffled().take(boardSize.getNumPairs()) // get a list of images. needs to be pairs
+            val randomizedImage = (chosenImages + chosenImages).shuffled()
+            // each card on the screen will represents its own memory card. from a list of randomizedImage, create meory card for each image using map()
+            cards = randomizedImage.map { MemoryCard(it) }
+        } else {
+            val randomizedImage  = (customImages + customImages).shuffled()
+            cards = randomizedImage.map { MemoryCard(it.hashCode(),it) }
+
+        }
+
+
     }
 
     fun flipCard(position: Int) : Boolean {

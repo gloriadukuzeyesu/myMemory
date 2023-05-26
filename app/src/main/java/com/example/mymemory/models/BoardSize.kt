@@ -1,9 +1,17 @@
 package com.example.mymemory.models
 
-enum class BoardSize (val numCards: Int)  {
+import java.io.Serializable
+
+enum class BoardSize (val numCards: Int) : Serializable {
+
     EASY(8),
     MEDIUM(18),
     HARD(24);
+
+    companion object{
+        fun getByValue (value: Int) = values().first{it.numCards == value}
+    }
+
     /**
      * returns the widht of the board game depending on  the level  of the game
      */
