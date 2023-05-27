@@ -1,4 +1,4 @@
-package com.example.mymemory.models
+package com.gloria.mymemory.models
 import com.google.firebase.firestore.PropertyName
 
 data class UserImageList (

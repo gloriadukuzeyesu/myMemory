@@ -1,4 +1,4 @@
-package com.example.mymemory
+package com.gloria.mymemory
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -26,11 +26,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mymemory.models.BoardSize
-import com.example.mymemory.utils.*
+import com.example.mymemory.R
+import com.gloria.mymemory.models.BoardSize
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.gloria.mymemory.utils.*
 import java.io.ByteArrayOutputStream
 
 class CreateActivity : AppCompatActivity() {

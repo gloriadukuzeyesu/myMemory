@@ -1,4 +1,4 @@
-package com.example.mymemory
+package com.gloria.mymemory
 
 import org.junit.Test
 

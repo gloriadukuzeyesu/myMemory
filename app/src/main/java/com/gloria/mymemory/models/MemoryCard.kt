@@ -1,4 +1,4 @@
-package com.example.mymemory.models
+package com.gloria.mymemory.models
 
 data class MemoryCard(
     // represents the uniqueness of the memory card

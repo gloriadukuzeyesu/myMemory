@@ -9,7 +9,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.mymemory"
+        applicationId "com.gloria.mymemory"
         minSdk 22
         targetSdk 33
         versionCode 1

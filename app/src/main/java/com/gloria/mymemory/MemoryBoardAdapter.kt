@@ -1,8 +1,7 @@
-package com.example.mymemory
+package com.gloria.mymemory
 
 import android.content.Context
 import android.util.Log
-import android.util.LogPrinter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,9 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mymemory.models.BoardSize
-import com.example.mymemory.models.MemoryCard
+import com.example.mymemory.R
+import com.gloria.mymemory.models.BoardSize
+import com.gloria.mymemory.models.MemoryCard
 import com.squareup.picasso.Picasso
 import kotlin.math.min
 
@@ -71,7 +71,9 @@ class MemoryBoardAdapter(
             }
            // imageButton.setImageResource(if (memoryCard.isFaceUp) memoryCard.identifier else R.drawable.ic_launcher_background)
             imageButton.alpha =   if(memoryCard.isMatched) .4f else 1.0f  // alpha stands for opacity
-            val colorStateList = if(memoryCard.isMatched)  ContextCompat.getColorStateList(context, R.color.color_gray)  else null
+            val colorStateList = if(memoryCard.isMatched)  ContextCompat.getColorStateList(context,
+                R.color.color_gray
+            )  else null
             ViewCompat.setBackgroundTintList(imageButton, colorStateList)
 
             imageButton.setOnClickListener {

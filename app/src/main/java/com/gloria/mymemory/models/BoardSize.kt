@@ -1,4 +1,4 @@
-package com.example.mymemory.models
+package com.gloria.mymemory.models
 
 import java.io.Serializable
 

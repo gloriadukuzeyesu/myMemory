@@ -1,6 +1,6 @@
-package com.example.mymemory.models
+package com.gloria.mymemory.models
 
-import com.example.mymemory.utils.DEFAULT_ICONS
+import com.gloria.mymemory.utils.DEFAULT_ICONS
 
 // crate the functionality of the game
 class MemoryGame(private val boardSize: BoardSize, private val customImages: List<String>?){

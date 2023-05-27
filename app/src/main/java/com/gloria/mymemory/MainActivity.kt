@@ -1,4 +1,4 @@
-package com.example.mymemory
+package com.gloria.mymemory
 
 import android.animation.ArgbEvaluator
 import android.annotation.SuppressLint
@@ -16,17 +16,16 @@ import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet.Layout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mymemory.models.BoardSize
-import com.example.mymemory.models.MemoryGame
-import com.example.mymemory.models.UserImageList
-import com.example.mymemory.utils.EXTRA_BOARD_SIZE
-import com.example.mymemory.utils.EXTRA_GAME_NAME
+import com.example.mymemory.R
+import com.gloria.mymemory.models.BoardSize
+import com.gloria.mymemory.models.MemoryGame
+import com.gloria.mymemory.models.UserImageList
+import com.gloria.mymemory.utils.EXTRA_BOARD_SIZE
+import com.gloria.mymemory.utils.EXTRA_GAME_NAME
 import com.github.jinatonic.confetti.CommonConfetti
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore

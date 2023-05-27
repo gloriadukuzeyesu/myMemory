@@ -1,4 +1,4 @@
-package com.example.mymemory.utils
+package com.gloria.mymemory.utils
 
 import android.app.Activity
 import android.content.Context
