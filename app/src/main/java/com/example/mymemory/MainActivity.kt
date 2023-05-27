@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +12,13 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet.Layout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,9 +27,11 @@ import com.example.mymemory.models.MemoryGame
 import com.example.mymemory.models.UserImageList
 import com.example.mymemory.utils.EXTRA_BOARD_SIZE
 import com.example.mymemory.utils.EXTRA_GAME_NAME
+import com.github.jinatonic.confetti.CommonConfetti
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     private var gameName : String? = null
     private var customGameImage: List<String>? = null
 
-    private lateinit var clRoot: ConstraintLayout
+    private lateinit var clRoot: CoordinatorLayout
     private lateinit var adapter: MemoryBoardAdapter
     private lateinit var memoryGame: MemoryGame
     private lateinit var  rvBoard : RecyclerView
@@ -92,35 +98,19 @@ class MainActivity : AppCompatActivity() {
             }
             
             R.id.mi_custom -> {
-                showCreationDialog(){
+                showCreationDialog(){}
+            }
 
-                }
+            R.id.mi_download -> {
+                showDownloadDialog()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showCreationDialog(function: () -> Unit) {
-        val boardSizeView =  LayoutInflater.from(this).inflate(R.layout.dialog_baord_size, null)
-        val radioGroupSize = boardSizeView.findViewById<RadioGroup>(R.id.radioGroup)
-        showAlertDialog("Create your own memory board", boardSizeView, View.OnClickListener {
-            // set a new value for the board size
-            val desiredBoardSize = when (radioGroupSize.checkedRadioButtonId) {
-                R.id.rbEasy -> BoardSize.EASY
-                R.id.rbMedium -> BoardSize.MEDIUM
-                else -> BoardSize.HARD
-            }
-           // setUpBoard() navigate the user to the new activity where they can start selecting pictures to create their game
-            // Navigate new Activity
 
-            val intent = Intent(this, CreateActivity::class.java)
-            intent.putExtra(EXTRA_BOARD_SIZE, desiredBoardSize)
-            startActivityForResult(intent, CREATE_REQUEST_CODE)
-//           startActivity(intent)
-            
-        })
 
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == CREATE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -134,6 +124,40 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    private fun showCreationDialog(function: () -> Unit) {
+        val boardSizeView =  LayoutInflater.from(this).inflate(R.layout.dialog_baord_size, null)
+        val radioGroupSize = boardSizeView.findViewById<RadioGroup>(R.id.radioGroup)
+        showAlertDialog("Create your own memory board", boardSizeView, View.OnClickListener {
+            // set a new value for the board size
+            val desiredBoardSize = when (radioGroupSize.checkedRadioButtonId) {
+                R.id.rbEasy -> BoardSize.EASY
+                R.id.rbMedium -> BoardSize.MEDIUM
+                else -> BoardSize.HARD
+            }
+            // setUpBoard() navigate the user to the new activity where they can start selecting pictures to create their game
+            // Navigate new Activity
+
+            val intent = Intent(this, CreateActivity::class.java)
+            intent.putExtra(EXTRA_BOARD_SIZE, desiredBoardSize)
+            startActivityForResult(intent, CREATE_REQUEST_CODE)
+//           startActivity(intent)
+
+        })
+
+    }
+
+    private fun showDownloadDialog() {
+        val boardDownloadView = LayoutInflater.from(this).inflate(R.layout.dialog_download_board, null)
+        showAlertDialog("Fetch Memory game", boardDownloadView, View.OnClickListener {
+            //grab the text of the game name of the user wants to download
+            val etDownloadGame = boardDownloadView.findViewById<EditText>(R.id.etDownloadGame)
+            val gameToDownLoad = etDownloadGame.text.toString().trim()
+            Log.i(TAG, "Game name is $gameToDownLoad")
+            downloadGame(gameToDownLoad)
+        })
+
+
+    }
     private fun downloadGame(customGameName: String) {
         db.collection("games").document(customGameName).get().addOnSuccessListener { document->
             val userImageList = document.toObject(UserImageList::class.java) // grab the list of images from fireStore
@@ -146,8 +170,15 @@ class MainActivity : AppCompatActivity() {
             val numCards = userImageList.images.size * 2 // * 2 bcz every image in the game has to be duplicate
             boardSize = BoardSize.getByValue(numCards)
             customGameImage = userImageList.images
-            setUpBoard()
+
+            // to avoid delay in downloading pick. fetch pics with picaso. get the image from cache without displaying them. Warm up the cache, that is what fetch() does
+            for(imageUrl in userImageList.images) {
+                Picasso.get().load(imageUrl).fetch()
+            }
+
+            Snackbar.make(clRoot, "you are playing this game '$customGameName'!", Snackbar.LENGTH_SHORT).show()
             gameName = customGameName
+            setUpBoard()
 
         }.addOnFailureListener{exception ->
             Log.e(TAG, "Exception when retrieving game", exception )
@@ -247,6 +278,7 @@ class MainActivity : AppCompatActivity() {
            tvNumPais.text = "Pairs: ${memoryGame.numPairsFound} / ${boardSize.getNumPairs()}"
            if(memoryGame.haveWonGame()) {
                Snackbar.make(clRoot, "You won! congratulations", Snackbar.LENGTH_LONG).show()
+               CommonConfetti.rainingConfetti(clRoot, intArrayOf(Color.YELLOW, Color.MAGENTA, Color.RED)).oneShot().animate()
            }
        }
         tvNumMoves.text = "Moves: ${memoryGame.getNumMoves()}"
