@@ -69,7 +69,7 @@ Experience the game with the default icons or spice it up with your own photos. 
 
 
 
-<img src = "README/walkthrough.gif" width="340" height ="680">
+<img src = "README/walkthrough.gif" width="300" height ="600">
 
 
 
@@ -77,9 +77,12 @@ Experience the game with the default icons or spice it up with your own photos. 
 
 
 
-| Picture 1                                                    | Picture 2                                                  |
-| ------------------------------------------------------------ | ---------------------------------------------------------- |
-| <img src="README/frontPage.png" width="340" height="680">    | <img src="README/chooseSize.png" width="340" height="680"> |
+|  <img src="README/frontPage.png" width="300" height="600">   | <img src="README/chooseSize.png" width="300" height="600"> |
+| :----------------------------------------------------------: | :--------------------------------------------------------: |
 |                                                              |                                                            |
-| <img src="README/differentSize.png" width="340" height="680"> | <img src="README/winGame.png" width="340" height="680">    |
+| <img src="README/differentSize.png" width="300" height="600"> |  <img src="README/winGame.png" width="300" height="600">   |
+
+
+
+
 
