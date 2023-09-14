@@ -1,6 +1,22 @@
 # My Memory
 Welcome to My Memory, a customizable memory game that provides endless fun for players of all ages. This README will guide you on how to get started with the game and highlight its key features.
 
+## Walkthrough
+
+My Memory Game is a free and customizable memory game that provides endless fun. The game follows the classic picture-matching concept, where players uncover and match pairs of cards. It offers the following features:
+
+- Select from different board sizes: 4x2, 6x3, and 6x4.
+- Enjoy playing with vibrant icons in the default mode.
+- Personalize the game by using your own photos from your device.
+- Share your unique custom game with friends who also have the app.
+- Keep track of your moves and successful pairs found.
+
+Experience the game with the default icons or spice it up with your own photos. Creating a custom game allows you to personalize your gaming experience and share it with others.
+
+
+
+<img src = "README/walkthrough.gif" width="300" height ="600">
+
 
 
 ## Getting Started
@@ -55,21 +71,7 @@ My Memory offers several exciting features to enhance your gaming experience:
 
 
 
-## Walkthrough
 
-My Memory Game is a free and customizable memory game that provides endless fun. The game follows the classic picture-matching concept, where players uncover and match pairs of cards. It offers the following features:
-
-- Select from different board sizes: 4x2, 6x3, and 6x4.
-- Enjoy playing with vibrant icons in the default mode.
-- Personalize the game by using your own photos from your device.
-- Share your unique custom game with friends who also have the app.
-- Keep track of your moves and successful pairs found.
-
-Experience the game with the default icons or spice it up with your own photos. Creating a custom game allows you to personalize your gaming experience and share it with others.
-
-
-
-<img src = "README/walkthrough.gif" width="300" height ="600">
 
 
 
